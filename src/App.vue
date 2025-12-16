@@ -34,26 +34,58 @@ const clearHistory = () => {
   }
 }
 
-// --- API & DATA ---
-const preloadImages = (catList) => {
-  catList.forEach(cat => {
+// --- OPTIMIZED API & DATA ---
+
+// Helper: Preload a single image returning a Promise
+const loadImage = (url) => {
+  return new Promise((resolve, reject) => {
     const img = new Image()
-    img.src = cat.url
+    img.src = url
+    img.onload = () => resolve(url)
+    img.onerror = () => resolve(null) // Resolve even on error to keep app moving
   })
 }
 
 const fetchCats = async () => {
   isLoading.value = true
   try {
-    const timestamp = new Date().getTime()
-    const response = await axios.get(`https://api.thecatapi.com/v1/images/search?limit=10&t=${timestamp}`)
+    // 1. Randomize ONLY the API call (to get new cats)
+    const randomSkip = Math.floor(Math.random() * 2000)
+    const response = await axios.get(`https://cataas.com/api/cats?limit=10&skip=${randomSkip}`)
     
-    const cleanData = response.data.map(cat => ({ id: cat.id, url: cat.url }))
+    // 2. Process data
+    const cleanData = response.data
+      .filter(cat => cat._id || cat.id)
+      .map(cat => {
+        const realId = cat._id || cat.id
+        return { 
+          id: realId, 
+          // FIX 1: REMOVED timestamp from image URL to allow Browser Caching!
+          // We keep width=500 for performance.
+          url: `https://cataas.com/cat/${realId}?width=500` 
+        }
+      })
+
     cats.value = cleanData
-    preloadImages(cleanData) 
+    
+    // FIX 2: "Smart Wait"
+    // We wait for the FIRST image to fully download before hiding the loading screen.
+    if (cleanData.length > 0) {
+      await loadImage(cleanData[0].url)
+    }
+
+    // Now that the first cat is ready, show the UI
+    isLoading.value = false
+
+    // Then secretly preload the rest in the background
+    cleanData.slice(1).forEach(cat => {
+      const img = new Image()
+      img.src = cat.url
+    })
+
   } catch (err) {
     console.error("API Failed:", err)
-  } finally {
+    alert("Cataas is slow right now. Please wait a moment.")
     isLoading.value = false
   }
 }
@@ -94,7 +126,6 @@ const commitSwipe = (direction) => {
   const currentCat = cats.value[currentIndex.value]
   
   if (direction === 'right') {
-    // Prevent Duplicates
     const isDuplicate = likedCats.value.some(cat => cat.id === currentCat.id)
     if (!isDuplicate) {
       likedCats.value.push(currentCat)
@@ -140,7 +171,7 @@ onUnmounted(() => {
 <template>
   <div class="container">
     <header class="app-header">
-      <h1>🐾 Paws & Prefs</h1>
+      <h1>🐾 Paws & Preference</h1>
       <div class="stats-badge" @click="showHistory = true">
         ❤️ {{ likedCats.length }}
       </div>
@@ -245,7 +276,7 @@ onUnmounted(() => {
   border: 1px solid #eaeaea; cursor: grab; user-select: none; touch-action: none;
 }
 .tinder-card:active { cursor: grabbing; }
-.tinder-card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.tinder-card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; content-visibility: auto; will-change: transform; }
 
 /* --- STAMPS --- */
 .choice-stamp {

@@ -1,40 +1,43 @@
 # 🐾 Paws & Preferences
 
-A Tinder-style web application designed for cat lovers, where users swipe right to collect their favorite kitties and build a personalized collection.
+A fast, Tinder-style web app built for cat lovers. Swipe through a deck of cat cards and save the ones you like to your personal collection.
 
-**[View Live Demo](https://ivankangjinliang.github.io/netizen-techs/)**
+👉 **Live Demo:** https://ivankangjinliang.github.io/netizen-techs/
 
 ---
 
 ## Features
 
-### Interactive Swiping
-* **Tinder-Style Physics:** Cards follow your mouse/finger with real-time rotation and opacity adjustments.
-* **Visual Feedback:** "LIKE" and "NOPE" stamps appear dynamically as you drag.
-* **Multi-Input Support:**
-    **Mouse:** Click and drag.
-    **Touch:** Swipe on mobile devices.
-    **Keyboard:** Use `Left Arrow` and `Right Arrow` keys.
-    **Buttons:** Manual control buttons for accessibility.
+### Swipe Interaction
+- **Natural card movement** – cards rotate and slide smoothly as you drag, giving a real deck-of-cards feel.
+- **Instant feedback** – clear **LIKE** and **NOPE** stamps appear based on swipe direction.
+- **Multiple ways to interact**
+  - Mouse: click and drag  
+  - Touch: mobile-friendly swipe gestures  
+  - Keyboard: left / right arrow keys  
+  - Buttons: simple on-screen controls  
 
-### Performance & Polish
-* **Zero-Lag Experience:** Implemented an image preloading system that fetches the next batch of cats in the background.
-* **Smart History:** Prevents duplicate cats from entering your collection.
-* **Persistence:** Your collection is saved to `localStorage`, so your liked cats remain even after refreshing the page.
+### Performance Focused
+- **Image preloading** – upcoming cats are loaded in the background so swiping feels instant.
+- **First-load protection** – the app waits for the first image to load before showing the card, avoiding blank states.
+- **Browser caching** – image URLs are structured to allow efficient caching for faster repeat visits.
+- **Rendering optimizations** – uses modern CSS features like `will-change` and `content-visibility` to keep animations smooth.
+- **Persistent collection** – liked cats are saved in `localStorage`, so your collection stays even after refresh.
 
-### Responsive Design
-* Fully optimized for both Desktop and Mobile views.
-* Includes a "History Modal" to view your full collection without leaving the game.
+### Responsive & Clean UI
+- **Modern design** – minimal UI with a subtle patterned background.
+- **Mobile-first layout** – comfortable touch targets and spacing on smaller screens.
+- **Collection modal** – view your saved cats anytime without losing your place in the stack.
 
 ---
 
 ## Tech Stack
 
-* **Framework:** [Vue 3](https://vuejs.org/) (Composition API)
-* **Build Tool:** [Vite](https://vitejs.dev/)
-* **HTTP Client:** [Axios](https://axios-http.com/)
-* **Gestures:** [VueUse](https://vueuse.org/) (useSwipe)
-* **API:** [TheCatAPI](https://thecatapi.com/)
+- **Framework:** Vue 3 (Composition API)
+- **Build Tool:** Vite
+- **HTTP Client:** Axios
+- **Gestures:** VueUse (`useSwipe`)
+- **API:** Cataas (Cat as a Service)
 
 ---
 

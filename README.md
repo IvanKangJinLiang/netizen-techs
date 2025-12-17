@@ -1,4 +1,4 @@
-# 🐾 Paws & Preferences
+# 🐾 Meow & Match
 
 A fast, Tinder style web app built for cat lovers. Swipe through a deck of cat cards and save the ones you like to your personal collection.
 

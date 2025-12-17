@@ -1,6 +1,6 @@
 # 🐾 Paws & Preferences
 
-A fast, Tinder-style web app built for cat lovers. Swipe through a deck of cat cards and save the ones you like to your personal collection.
+A fast, Tinder style web app built for cat lovers. Swipe through a deck of cat cards and save the ones you like to your personal collection.
 
 👉 **Live Demo:** https://ivankangjinliang.github.io/netizen-techs/
 

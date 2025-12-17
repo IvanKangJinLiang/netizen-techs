@@ -36,7 +36,7 @@ A fast, Tinder-style web app built for cat lovers. Swipe through a deck of cat c
 - **Framework:** Vue 3 (Composition API)
 - **Build Tool:** Vite
 - **HTTP Client:** Axios
-- **Gestures:** VueUse (`useSwipe`)
+- **Gestures:** Custom swipe handling (mouse + touch)
 - **API:** Cataas (Cat as a Service)
 
 ---

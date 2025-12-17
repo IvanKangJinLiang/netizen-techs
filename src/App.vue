@@ -171,7 +171,7 @@ onUnmounted(() => {
 <template>
   <div class="container">
     <header class="app-header">
-      <h1>🐾 Paws & Preference</h1>
+      <h1>🐾 Meow Meow </h1>
       <div class="stats-badge" @click="showHistory = true">
         ❤️ {{ likedCats.length }}
       </div>
